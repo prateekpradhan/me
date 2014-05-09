@@ -24,6 +24,7 @@
 @property BOOL disableAutoDetection;
 
 - (void)loadTemplatesWithNames:(NSString*)firstTemplate, ... NS_REQUIRES_NIL_TERMINATION;
+-(void)loadAvailableTemplates;
 
 - (NSString *)getGlyphNamesString;
 -(void)logStrokes;

@@ -81,6 +81,12 @@
     WTMGlyph *t = [[WTMGlyph alloc] initWithName:name JSONData:jsonData];
     [self addGlyph:t];
 }
+- (void)addGlyphForInfo:(NSArray *)paramPoints name:(NSString *)name
+{
+    WTMGlyph *t = [[WTMGlyph alloc] initWithName:name dataPoints:paramPoints];
+    [self addGlyph:t];
+}
+
 
 - (void)removeGlyphByName:(NSString *)name 
 {

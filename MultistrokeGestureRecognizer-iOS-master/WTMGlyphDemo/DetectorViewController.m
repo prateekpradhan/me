@@ -38,15 +38,32 @@
     
     self.detectorView.backgroundColor = [UIColor darkGrayColor];
     // Do any additional setup after loading the view from its nib.
-    [self.detectorView loadTemplatesWithNames:@"A",@"V",@"P",@"T",@"B", nil];
+//    [self.detectorView loadTemplatesWithNames:@"A",@"V",@"P",@"T",@"B", nil];
+    [self loadTemplates];
     self.outputTextField.text = @"";
+}
+-(void)loadTemplates{
+    
+    __weak DetectorViewController *weakSelf = self;
+    dispatch_queue_t backgroundQueue = dispatch_queue_create("loadDictionay", 0);
+    
+    dispatch_async(backgroundQueue, ^{
+        [weakSelf.detectorView loadAvailableTemplates];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf updateInfoLabel];
+        });
+    });
+    
+    
+
 }
 -(void)autoDetectButtonClicked:(UIBarButtonItem *)sender{
     if(sender.tag == 1){
         sender.title =@"Auto Detect : ON";
         sender.tag = 2;
         self.detectorView.disableAutoDetection = NO;
-        self.detectorView.glyphDetector.timeoutSeconds = 5;
+        self.detectorView.glyphDetector.timeoutSeconds = 10;
         self.detectButton.enabled = NO;
         
     }else{
@@ -66,14 +83,15 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
+    [self updateInfoLabel];
+
+}
+-(void)updateInfoLabel{
     
     NSString *glyphNames = [self.detectorView getGlyphNamesString];
     if ([glyphNames length] > 0) {
         NSString *statusText = [NSString stringWithFormat:@"   Loaded with %@ templates.\n\nStart drawing. ", glyphNames];
         self.infoLabel.text = statusText;
-
-        
-        
     }
 }
 #pragma mark WTMGlyphDetectorViewDelegate Methods

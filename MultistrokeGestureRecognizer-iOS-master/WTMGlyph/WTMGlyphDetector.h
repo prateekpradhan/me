@@ -36,6 +36,7 @@
 
 - (void)addGlyph:(WTMGlyph *)glyph;
 - (void)addGlyphFromJSON:(NSData *)jsonData name:(NSString *)name;
+- (void)addGlyphForInfo:(NSArray *)points name:(NSString *)name;
 - (void)removeGlyphByName:(NSString *)name;
 
 - (void)addPoint:(CGPoint)point;

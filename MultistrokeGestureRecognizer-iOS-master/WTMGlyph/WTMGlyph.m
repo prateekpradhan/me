@@ -39,7 +39,12 @@
     [self createTemplates];
     return self;
 }
-
+- (id)initWithName:(NSString *)_name dataPoints:(NSArray *)dataPoints {
+    if (!(self = [self init])) return nil;
+    self.name = _name;
+    [self createTemplatesForDataPoints:dataPoints];
+    return self;
+}
 - (id)initWithName:(NSString *)_name JSONData:(NSData *)jsonData {
     if (!(self = [self init])) return nil;
     self.name = _name;
@@ -74,8 +79,15 @@
     NSError *error = nil;
 	NSArray *arr = [[CJSONDeserializer deserializer] deserializeAsArray:jsonData error:&error];
 	DebugLog(@"json data %@", arr);
+    [self createTemplatesForDataPoints:arr];
+    
+}
+/*
+ info : arrray(strokes(array of points) )
+ */
+-(void)createTemplatesForDataPoints:(NSArray *)info{
     int i = 0;
-    for (NSArray *strokePoints in arr) {
+    for (NSArray *strokePoints in info) {
         WTMGlyphStroke *stroke = [[WTMGlyphStroke alloc] init];
 		for (NSArray *pointArray in strokePoints)
             [stroke addPoint:CGPointMake([[pointArray objectAtIndex:0] floatValue], [[pointArray objectAtIndex:1] floatValue])];
@@ -84,11 +96,12 @@
         [strokeOrders addObject:[NSNumber numberWithInt:i]];
         i++;
 	}
-    
-   DebugLog(@"Strokes %@", self.strokes);
+    DebugLog(@"Strokes %@", self.strokes);
     DebugLog(@"Initial stroke orders %@", strokeOrders);
 	
     [self createTemplates];
+    
+    
 }
 
 - (void)permuteStrokeOrders:(int)count {

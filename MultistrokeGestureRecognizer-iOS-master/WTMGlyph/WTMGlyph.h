@@ -28,9 +28,11 @@
 - (id)init;
 - (id)initWithName:(NSString *)_name strokes:(NSArray *)strokes;
 - (id)initWithName:(NSString *)_name JSONData:(NSData *)jsonData;
+- (id)initWithName:(NSString *)_name dataPoints:(NSArray *)dataPoints;
 
 - (void)createTemplates;
 - (void)createTemplatesFromJSONData:(NSData *)jsonData;
+-(void)createTemplatesForDataPoints:(NSArray *)info;
 - (void)permuteStrokeOrders:(int)count;
 - (void)createUnistrokes;
 

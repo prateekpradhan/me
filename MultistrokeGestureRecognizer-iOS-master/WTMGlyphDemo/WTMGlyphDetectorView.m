@@ -8,6 +8,7 @@
 
 #import "WTMGlyphDetectorView.h"
 #import "CJSONSerialization.h"
+#import "CJSONDeserializer.h"
 
 @interface WTMGlyphDetectorView() <WTMGlyphDelegate>
 @property (nonatomic, strong) NSMutableArray *glyphNamesArray;
@@ -106,9 +107,18 @@
   }
   va_end(args);
 }
--(void)loadAvailabelTemplates{
+-(void)loadAvailableTemplates{
     NSData *jsonData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Dictionary" ofType:@"json"]];
-    
+    NSError *error = nil;
+	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
+    for (NSString *glyphName in dict) {
+        [self.glyphNamesArray addObject:glyphName];
+        NSArray *arr = [dict objectForKey:glyphName];
+        if(arr){
+            [self.glyphDetector addGlyphForInfo:arr name:glyphName];
+
+        }
+    }
 
 }
 
