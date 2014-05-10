@@ -27,6 +27,7 @@
 @property (nonatomic, strong) NSMutableArray *points;
 @property (nonatomic, strong) NSMutableArray *glyphs;
 @property (nonatomic, assign) NSInteger timeoutSeconds;
+@property (nonatomic) BOOL detectionInProgress;
 
 + (id)detector;
 + (id)defaultDetector;

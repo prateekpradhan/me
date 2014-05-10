@@ -18,6 +18,7 @@
 @synthesize glyphs;
 @synthesize timeoutSeconds;
 
+
 #pragma mark - Lifecycle
 
 + (id)detector 
@@ -112,7 +113,6 @@
     DebugLog(@"Adding point to detector: %@", [NSValue valueWithCGPoint:point]);
     
     lastPointTime = [[NSDate date] timeIntervalSince1970];
-    NSLog(@"NSValue : %@",[NSValue valueWithCGPoint:point]);
     [self.points addObject:[NSValue valueWithCGPoint:point]];
 }
 
@@ -121,7 +121,7 @@
 }
 
 - (WTMDetectionResult*)detectGlyph {
-    
+    self.detectionInProgress = YES;
     // Take the captured points and make a Template
     // Compare the template against existing templates and find the best match.
     // If the best match is within a threshold, consider it a true match.
@@ -150,7 +150,7 @@
     
     while ((glyph = (WTMGlyph *)[eachGlyph nextObject])) {
         float score = 1 / [glyph recognize:inputTemplate];
-        DebugLog(@"Glyph: %@ Score: %f", glyph.name, score);
+        NSLog(@"Glyph: %@ Score: %f", glyph.name, score);
         result = [NSDictionary dictionaryWithObjects:[NSArray arrayWithObjects:glyph.name, [NSNumber numberWithFloat:score], nil] 
                                              forKeys:[NSArray arrayWithObjects:@"name", @"score", nil]];
         [results addObject:result];
@@ -160,7 +160,7 @@
             bestMatch = glyph;
         }
     }
-    DebugLog(@"Best Glyph: %@ with a Score of: %f", bestMatch.name, highestScore);
+    NSLog(@"Best Glyph: %@ with a Score of: %f", bestMatch.name, highestScore);
     
     NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"score" ascending:NO];
     NSArray *sortedResults = [results sortedArrayUsingDescriptors:[NSArray arrayWithObjects:sortDescriptor, nil]];
@@ -174,6 +174,8 @@
         [delegate glyphDetected:bestMatch withScore:highestScore];
     if ([delegate respondsToSelector:@selector(glyphResults:)])
         [delegate glyphResults:sortedResults];
+    
+    self.detectionInProgress = NO;
     
     return d;
 }
@@ -215,9 +217,9 @@
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSInteger elapsed = now - lastPointTime;
     
-    DebugLog(@"Elapsed time since last point is: %i", elapsed);
+    NSLog(@"Elapsed time since last point is: %i", elapsed);
     if (elapsed >= self.timeoutSeconds) {
-        DebugLog(@"Timeout detected");
+        NSLog(@"Timeout detected");
         return YES;
     }
     

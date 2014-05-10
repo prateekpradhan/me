@@ -46,6 +46,7 @@
 		4305514416B5BED600F4214D /* WTMDetectionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305514316B5BED600F4214D /* WTMDetectionResult.m */; };
 		FB1C818B191B7E6A00577099 /* B.json in Resources */ = {isa = PBXBuildFile; fileRef = FB1C818A191B7E6A00577099 /* B.json */; };
 		FB1C818F191B8FC300577099 /* Dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FB1C818E191B8FC300577099 /* Dictionary.json */; };
+		FB68A698191DEA5B0093F888 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FB68A697191DEA5B0093F888 /* Constants.m */; };
 		FBA1590F1877328B0067B4D9 /* DetectorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FBA1590D1877328B0067B4D9 /* DetectorViewController.m */; };
 		FBA159101877328B0067B4D9 /* DetectorViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FBA1590E1877328B0067B4D9 /* DetectorViewController.xib */; };
 		FBC7DD03180A887600533B2F /* R.json in Resources */ = {isa = PBXBuildFile; fileRef = FBC7DD02180A887600533B2F /* R.json */; };
@@ -120,6 +121,8 @@
 		4305514316B5BED600F4214D /* WTMDetectionResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTMDetectionResult.m; sourceTree = "<group>"; };
 		FB1C818A191B7E6A00577099 /* B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = B.json; sourceTree = "<group>"; };
 		FB1C818E191B8FC300577099 /* Dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dictionary.json; sourceTree = "<group>"; };
+		FB68A696191DEA5B0093F888 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		FB68A697191DEA5B0093F888 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		FBA1590C1877328B0067B4D9 /* DetectorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetectorViewController.h; sourceTree = "<group>"; };
 		FBA1590D1877328B0067B4D9 /* DetectorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetectorViewController.m; sourceTree = "<group>"; };
 		FBA1590E1877328B0067B4D9 /* DetectorViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetectorViewController.xib; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 				FBFA6129180BE836003F6C69 /* pa.json */,
 				FB1C818A191B7E6A00577099 /* B.json */,
 				FB1C818E191B8FC300577099 /* Dictionary.json */,
+				FB68A696191DEA5B0093F888 /* Constants.h */,
+				FB68A697191DEA5B0093F888 /* Constants.m */,
 			);
 			path = WTMGlyph;
 			sourceTree = "<group>";
@@ -379,6 +384,7 @@
 				42E359E715A536C000C9A3F3 /* ViewController.m in Sources */,
 				4249137A15A5422B001F58DD /* WTMGlyphDetectorView.m in Sources */,
 				FBA1590F1877328B0067B4D9 /* DetectorViewController.m in Sources */,
+				FB68A698191DEA5B0093F888 /* Constants.m in Sources */,
 				42E35A2715A5372500C9A3F3 /* CDataScanner.m in Sources */,
 				42E35A2915A5372500C9A3F3 /* CFilteringJSONSerializer.m in Sources */,
 				42E35A2A15A5372500C9A3F3 /* CJSONDeserializer_BlocksExtensions.m in Sources */,
@@ -440,10 +446,7 @@
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;

@@ -15,18 +15,22 @@
 @optional
 - (void)wtmGlyphDetectorView:(WTMGlyphDetectorView*)theView glyphDetected:(WTMGlyph *)glyph withScore:(float)score;
 - (void)glyphResults:(NSArray *)results;
+- (void)characterBeganToDrawn;
 @end
 
 @interface WTMGlyphDetectorView : UIView
 @property (nonatomic, strong) id delegate;
 @property (nonatomic, assign) BOOL enableDrawing;
 @property (nonatomic, strong) WTMGlyphDetector *glyphDetector;
-@property BOOL disableAutoDetection;
+@property (nonatomic) BOOL disableAutoDetection;
 
 - (void)loadTemplatesWithNames:(NSString*)firstTemplate, ... NS_REQUIRES_NIL_TERMINATION;
 -(void)loadAvailableTemplates;
 
+-(void)updateCurrentContextGlyphWithName:(NSString *)name;
+
 - (NSString *)getGlyphNamesString;
 -(void)logStrokes;
+-(void)detectGlyph;
 
 @end

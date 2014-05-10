@@ -14,7 +14,9 @@
 @property (nonatomic, strong) NSMutableArray *glyphNamesArray;
 @property (nonatomic, strong) UIBezierPath *myPath;
 @property (nonatomic, strong) NSMutableArray *strokes;
+@property (strong) NSMutableArray *lastDrawnStorkes;
 @property (nonatomic,strong) NSMutableArray *stokePoints;
+@property (nonatomic,strong) NSTimer *timer;
 
 @end
 
@@ -78,9 +80,30 @@
     self.glyphNamesArray = [[NSMutableArray alloc] init];
 }
 
+-(void)setDisableAutoDetection:(BOOL)value{
+    _disableAutoDetection = value;
+    if(_disableAutoDetection){
+        [self.timer invalidate];
+        self.timer =nil;
+    }else{
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(fireTimer:) userInfo:nil repeats:YES];
+    }
+    
+}
+-(void )fireTimer:(NSTimer *)timer{
+    if(!self.disableAutoDetection) {
+        BOOL hasTimeOut = [self.glyphDetector hasTimedOut];
+        if (hasTimeOut && !self.glyphDetector.detectionInProgress) {
+            [self detectGlyph];
+        }
+    }
+   
+}
+-(void)detectGlyph{
+    
+    [self.glyphDetector detectGlyph];
 
-
-
+}
 #pragma mark - Public interfaces
 
 - (NSString *)getGlyphNamesString
@@ -88,7 +111,10 @@
   if (self.glyphNamesArray == nil || [self.glyphNamesArray count] <= 0)
     return @"";
   
-  return [self.glyphNamesArray componentsJoinedByString: @", "];
+    NSArray *sortedArray = [self.glyphNamesArray sortedArrayUsingSelector:@selector(localizedCaseInsensitiveCompare:)];
+    ;
+   
+  return [sortedArray componentsJoinedByString: @", "];
 }
 
 - (void)loadTemplatesWithNames:(NSString*)firstTemplate, ... 
@@ -129,11 +155,12 @@
 
 - (void)glyphDetected:(WTMGlyph *)glyph withScore:(float)score
 {
+   // [self performSelector:@selector(clearDrawingIfTimeout) withObject:nil afterDelay:1.0f];
+    [self clearDrawingIfTimeout];
   //Simply forward it to my parent
   if ([self.delegate respondsToSelector:@selector(wtmGlyphDetectorView:glyphDetected:withScore:)])
     [self.delegate wtmGlyphDetectorView:self glyphDetected:glyph withScore:score];
   
-  [self performSelector:@selector(clearDrawingIfTimeout) withObject:nil afterDelay:1.0f];
 }
 
 - (void)glyphResults:(NSArray *)results{
@@ -150,6 +177,14 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(!self.strokes.count){
+        //Make last drawn nil since a new character is started for drawing.
+        self.lastDrawnStorkes = nil;
+        if([self.delegate respondsToSelector:@selector(characterBeganToDrawn)]){
+            [self.delegate characterBeganToDrawn];
+        }
+
+    }
   //This is basically the content of resetIfTimeout
   BOOL hasTimeOut = [self.glyphDetector hasTimedOut];
   if (hasTimeOut) {
@@ -183,7 +218,6 @@
 {
   UITouch *touch = [touches anyObject];
   CGPoint point = [touch locationInView:self];
-  NSLog(@"hello %@",NSStringFromCGPoint(point));
   [self.glyphDetector addPoint:point];
   
   [super touchesMoved:touches withEvent:event];
@@ -213,7 +247,7 @@
     
   
     
-    [self.strokes removeAllObjects];
+    //[self.strokes removeAllObjects];
     [self.myPath removeAllPoints];
     //This is not recommended for production, but it's ok here since we don't have a lot to draw
     [self setNeedsDisplay];
@@ -224,9 +258,7 @@
   UITouch *touch = [touches anyObject];
   CGPoint point = [touch locationInView:self];
   [self.glyphDetector addPoint:point];
-    if(!self.disableAutoDetection){
-        [self.glyphDetector detectGlyph];
-    }
+    
   
     
     NSArray *pointArr = [NSArray arrayWithObjects:[NSNumber numberWithFloat:floorf(point.x) ],[NSNumber numberWithFloat:floorf(point.y)], nil];
@@ -254,18 +286,27 @@
   if (!self.enableDrawing)
     return;
 
-    if (!self.disableAutoDetection && NO) {
-        BOOL hasTimeOut = [self.glyphDetector hasTimedOut];
-        if (!hasTimeOut)
-            return;
-    }
+//    if (!self.disableAutoDetection) {
+//        BOOL hasTimeOut = [self.glyphDetector hasTimedOut];
+//        if (!hasTimeOut)
+//            return;
+//    }
  
   
   [self.myPath removeAllPoints];
   [self.glyphDetector removeAllPoints];
+  self.lastDrawnStorkes = [NSMutableArray arrayWithArray:self.strokes];
+  [self.strokes removeAllObjects];
+    
   
   //This is not recommended for production, but it's ok here since we don't have a lot to draw
   [self setNeedsDisplay];
 }
+-(void)updateCurrentContextGlyphWithName:(NSString *)name{
+    [self.glyphDetector addGlyphForInfo:self.lastDrawnStorkes name:name];
+    
+}
+
+
 
 @end

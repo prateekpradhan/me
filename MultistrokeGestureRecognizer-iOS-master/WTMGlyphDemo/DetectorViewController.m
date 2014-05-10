@@ -7,7 +7,7 @@
 //
 
 #import "DetectorViewController.h"
-#define GESTURE_SCORE_THRESHOLD         1.5f
+#define GESTURE_SCORE_THRESHOLD         2.5f
 
 @interface DetectorViewController () <WTMGlyphDelegate>
 
@@ -39,11 +39,13 @@
     self.detectorView.backgroundColor = [UIColor darkGrayColor];
     // Do any additional setup after loading the view from its nib.
 //    [self.detectorView loadTemplatesWithNames:@"A",@"V",@"P",@"T",@"B", nil];
+    [self.detectorView bringSubviewToFront:self.loadingIndicator];
     [self loadTemplates];
     self.outputTextField.text = @"";
 }
 -(void)loadTemplates{
-    
+    [self.loadingIndicator startAnimating];
+    self.infoLabel.text = @"Loading Templates...";
     __weak DetectorViewController *weakSelf = self;
     dispatch_queue_t backgroundQueue = dispatch_queue_create("loadDictionay", 0);
     
@@ -52,6 +54,8 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf updateInfoLabel];
+            [weakSelf.loadingIndicator stopAnimating];
+
         });
     });
     
@@ -63,7 +67,7 @@
         sender.title =@"Auto Detect : ON";
         sender.tag = 2;
         self.detectorView.disableAutoDetection = NO;
-        self.detectorView.glyphDetector.timeoutSeconds = 10;
+        self.detectorView.glyphDetector.timeoutSeconds = 1.0;
         self.detectButton.enabled = NO;
         
     }else{
@@ -89,12 +93,19 @@
 -(void)updateInfoLabel{
     
     NSString *glyphNames = [self.detectorView getGlyphNamesString];
+    
+    
     if ([glyphNames length] > 0) {
         NSString *statusText = [NSString stringWithFormat:@"   Loaded with %@ templates.\n\nStart drawing. ", glyphNames];
         self.infoLabel.text = statusText;
     }
 }
-#pragma mark WTMGlyphDetectorViewDelegate Methods
+#pragma mark START WTMGlyphDetectorViewDelegate Methods
+- (void)characterBeganToDrawn{
+    self.results =nil;
+    [self.leftColumnTable reloadData];
+}
+
 - (void)wtmGlyphDetectorView:(WTMGlyphDetectorView*)theView glyphDetected:(WTMGlyph *)glyph withScore:(float)score
 {
     //Reject detection when quality too low
@@ -107,33 +118,89 @@
    
 }
 - (void)glyphResults:(NSArray *)results{
-    self.results = results;
+    
+    NSMutableArray *newArray =[[NSMutableArray alloc] init];
+    NSMutableDictionary *keys = [[NSMutableDictionary alloc] init];
+    for (NSDictionary *dict in results) {
+        NSString *name = [dict objectForKey:@"name"];
+        if([keys objectForKey:name]){
+            continue;
+        }
+        [newArray addObject:dict];
+        [keys setObject:dict forKey:name];
+    }
+    
+    NSArray *newArr = newArray.count > 5?[newArray subarrayWithRange:NSMakeRange(0, 5)]:newArray;
+    
+    self.results = newArr;
     [self.leftColumnTable reloadData];
 }
+#pragma mark EDN WTMGlyphDetectorViewDelegate Methods
+
 -(IBAction)detectButtonPressed:(id)sender{
     self.resultLabel.text =@"Detecting...";
     [self.detectorView logStrokes];
-    [self.detectorView.glyphDetector detectGlyph];
+    [self.detectorView detectGlyph];
     
 }
 -(IBAction)clearButtonPressed:(id)sender{
     self.outputTextField.text = @"";
 }
-#pragma mark tableViewDelegate Methods
+#pragma mark START tableViewDelegate Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return  self.results.count;
+    return  self.results.count + 1;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    NSDictionary *result =[self.results objectAtIndex:indexPath.row];
-    UITableViewCell *cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    NSNumber *score = [result objectForKey:@"score"];
-    cell.textLabel.text = [NSString stringWithFormat:@"Name:%@ Score:%.3f ",[result objectForKey:@"name"],[score floatValue]];
-    return cell;
+    if(indexPath.row < self.results.count ){
+        NSDictionary *result =[self.results objectAtIndex:indexPath.row];
+        UITableViewCell *cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSNumber *score = [result objectForKey:@"score"];
+        cell.textLabel.text = [NSString stringWithFormat:@"Name:%@ Score:%.3f ",[result objectForKey:@"name"],[score floatValue]];
+        return cell;
+    }else{
+        UITableViewCell *cell =[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"Cell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        NSString *cellString = @"Start Drawing on Canvas";
+        if(self.results.count){
+                cellString = @"Any Others";
+        }
+        cell.textLabel.text = [NSString stringWithFormat:@"%@",cellString];
+        return cell;
+    }
+    return nil;
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if(indexPath.row < self.results.count ){
+       
+        NSDictionary *result =[self.results objectAtIndex:indexPath.row];
+        NSString *name = [result objectForKey:@"name"];
+        if(name && ![name isEqualToString:@""]){
+            self.resultLabel.text = [NSString stringWithFormat: @"Updating template for %@",name];
+            [self.detectorView updateCurrentContextGlyphWithName:name];
+            self.results =nil;
+            [self.leftColumnTable reloadData];
+            self.resultLabel.text = [NSString stringWithFormat: @"Updated template for %@",name];
+
+        }
+    
+    }else{
+        if(self.results.count){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"" message:@"Enter Character Name" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Done",nil];
+            alert.alertViewStyle =  UIAlertViewStylePlainTextInput;
+            [alert show];
+        }
+        
+    }
+}
+-(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    return @"Results";
+}
+#pragma mark END tableViewDelegate Methods
 
 -(BOOL)shouldAutorotate{
     return NO;
@@ -141,4 +208,26 @@
 -(BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation{
     return NO;
 }
+
+#pragma mark START alertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if(buttonIndex != 0){
+        UITextField *textField =  [alertView textFieldAtIndex:0];
+        NSString *name = textField.text;
+        if(name && ![name isEqualToString:@""]){
+            self.resultLabel.text = [NSString stringWithFormat: @"Updating template for %@",name];
+            [self.detectorView updateCurrentContextGlyphWithName:name];
+            self.results =nil;
+            [self.leftColumnTable reloadData];
+            self.resultLabel.text = [NSString stringWithFormat: @"Updated template for %@",name];
+            
+        }
+
+    }
+    
+}
+#pragma mark END alertViewDelegate Methods
+
+
 @end

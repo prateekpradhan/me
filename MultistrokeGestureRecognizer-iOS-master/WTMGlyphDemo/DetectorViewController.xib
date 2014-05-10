@@ -12,6 +12,7 @@
                 <outlet property="detectorView" destination="9qw-bZ-q6b" id="MzO-1H-Re3"/>
                 <outlet property="infoLabel" destination="t1e-Hb-F2P" id="L7I-cW-wvk"/>
                 <outlet property="leftColumnTable" destination="rhH-T6-vLI" id="fSf-yI-G2x"/>
+                <outlet property="loadingIndicator" destination="16Z-qh-JAI" id="9L2-Jm-Ghs"/>
                 <outlet property="outputTextField" destination="7KD-bD-feu" id="dIs-vY-I6J"/>
                 <outlet property="resultLabel" destination="u4I-iu-r5U" id="LUp-l8-R1N"/>
                 <outlet property="view" destination="2" id="3"/>
@@ -88,7 +89,7 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loaded with Templates A" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t1e-Hb-F2P">
+                        <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="t1e-Hb-F2P">
                             <rect key="frame" x="0.0" y="814" width="768" height="46"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -96,6 +97,11 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" id="16Z-qh-JAI">
+                            <rect key="frame" x="242" y="327" width="37" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="color" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </activityIndicatorView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <inset key="insetFor6xAndEarlier" minX="0.0" minY="64" maxX="0.0" maxY="0.0"/>

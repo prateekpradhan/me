@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "WTMGlyphDetectorView.h"
 
-@interface DetectorViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface DetectorViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 
 @property (strong, nonatomic) IBOutlet WTMGlyphDetectorView *detectorView;
 @property (strong, nonatomic) IBOutlet UILabel *resultLabel;
@@ -18,6 +18,7 @@
 @property (strong, nonatomic) IBOutlet UIButton *detectButton;
 @property (strong, nonatomic) IBOutlet UITextField *clearButton;
 @property (strong, nonatomic) IBOutlet UILabel *infoLabel;
+@property (strong) IBOutlet UIActivityIndicatorView *loadingIndicator;
 -(IBAction)detectButtonPressed:(id)sender;
 -(IBAction)clearButtonPressed:(id)sender;
 @property NSArray *results;
