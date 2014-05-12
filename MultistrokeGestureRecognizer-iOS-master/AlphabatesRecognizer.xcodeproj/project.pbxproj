@@ -64,14 +64,14 @@
 		4249138315A5544E001F58DD /* triangle.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = triangle.json; sourceTree = "<group>"; };
 		4249138415A5544E001F58DD /* V.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = V.json; sourceTree = "<group>"; };
 		4249138515A5544E001F58DD /* W.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = W.json; sourceTree = "<group>"; };
-		42E359CF15A536C000C9A3F3 /* WTMGlyphDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WTMGlyphDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		42E359CF15A536C000C9A3F3 /* AlphabatesRecognizer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AlphabatesRecognizer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42E359D315A536C000C9A3F3 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		42E359D515A536C000C9A3F3 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		42E359D715A536C000C9A3F3 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		42E359DB15A536C000C9A3F3 /* WTMGlyphDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "WTMGlyphDemo-Info.plist"; sourceTree = "<group>"; };
+		42E359DB15A536C000C9A3F3 /* AlphabatesRecognizer-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "AlphabatesRecognizer-Info.plist"; sourceTree = "<group>"; };
 		42E359DD15A536C000C9A3F3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		42E359DF15A536C000C9A3F3 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		42E359E115A536C000C9A3F3 /* WTMGlyphDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WTMGlyphDemo-Prefix.pch"; sourceTree = "<group>"; };
+		42E359E115A536C000C9A3F3 /* AlphabatesRecognizer-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "AlphabatesRecognizer-Prefix.pch"; sourceTree = "<group>"; };
 		42E359E215A536C000C9A3F3 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		42E359E315A536C000C9A3F3 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		42E359E515A536C000C9A3F3 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -172,7 +172,7 @@
 		42E359D015A536C000C9A3F3 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				42E359CF15A536C000C9A3F3 /* WTMGlyphDemo.app */,
+				42E359CF15A536C000C9A3F3 /* AlphabatesRecognizer.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -210,10 +210,10 @@
 		42E359DA15A536C000C9A3F3 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				42E359DB15A536C000C9A3F3 /* WTMGlyphDemo-Info.plist */,
+				42E359DB15A536C000C9A3F3 /* AlphabatesRecognizer-Info.plist */,
 				42E359DC15A536C000C9A3F3 /* InfoPlist.strings */,
 				42E359DF15A536C000C9A3F3 /* main.m */,
-				42E359E115A536C000C9A3F3 /* WTMGlyphDemo-Prefix.pch */,
+				42E359E115A536C000C9A3F3 /* AlphabatesRecognizer-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -301,9 +301,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		42E359CE15A536C000C9A3F3 /* WTMGlyphDemo */ = {
+		42E359CE15A536C000C9A3F3 /* AlphabatesRecognizer */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 42E359F015A536C000C9A3F3 /* Build configuration list for PBXNativeTarget "WTMGlyphDemo" */;
+			buildConfigurationList = 42E359F015A536C000C9A3F3 /* Build configuration list for PBXNativeTarget "AlphabatesRecognizer" */;
 			buildPhases = (
 				42E359CB15A536C000C9A3F3 /* Sources */,
 				42E359CC15A536C000C9A3F3 /* Frameworks */,
@@ -313,9 +313,9 @@
 			);
 			dependencies = (
 			);
-			name = WTMGlyphDemo;
+			name = AlphabatesRecognizer;
 			productName = WTMGlyphDemo;
-			productReference = 42E359CF15A536C000C9A3F3 /* WTMGlyphDemo.app */;
+			productReference = 42E359CF15A536C000C9A3F3 /* AlphabatesRecognizer.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -327,7 +327,7 @@
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "torin.nguyen@2359media.com";
 			};
-			buildConfigurationList = 42E359C915A536C000C9A3F3 /* Build configuration list for PBXProject "WTMGlyphDemo" */;
+			buildConfigurationList = 42E359C915A536C000C9A3F3 /* Build configuration list for PBXProject "AlphabatesRecognizer" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -339,7 +339,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				42E359CE15A536C000C9A3F3 /* WTMGlyphDemo */,
+				42E359CE15A536C000C9A3F3 /* AlphabatesRecognizer */,
 			);
 		};
 /* End PBXProject section */
@@ -483,10 +483,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WTMGlyphDemo/WTMGlyphDemo-Prefix.pch";
-				INFOPLIST_FILE = "WTMGlyphDemo/WTMGlyphDemo-Info.plist";
+				GCC_PREFIX_HEADER = "WTMGlyphDemo/AlphabatesRecognizer-Prefix.pch";
+				INFOPLIST_FILE = "WTMGlyphDemo/AlphabatesRecognizer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AlphabatesRecognizer;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -496,10 +496,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "WTMGlyphDemo/WTMGlyphDemo-Prefix.pch";
-				INFOPLIST_FILE = "WTMGlyphDemo/WTMGlyphDemo-Info.plist";
+				GCC_PREFIX_HEADER = "WTMGlyphDemo/AlphabatesRecognizer-Prefix.pch";
+				INFOPLIST_FILE = "WTMGlyphDemo/AlphabatesRecognizer-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = AlphabatesRecognizer;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
@@ -508,7 +508,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		42E359C915A536C000C9A3F3 /* Build configuration list for PBXProject "WTMGlyphDemo" */ = {
+		42E359C915A536C000C9A3F3 /* Build configuration list for PBXProject "AlphabatesRecognizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42E359EE15A536C000C9A3F3 /* Debug */,
@@ -517,7 +517,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		42E359F015A536C000C9A3F3 /* Build configuration list for PBXNativeTarget "WTMGlyphDemo" */ = {
+		42E359F015A536C000C9A3F3 /* Build configuration list for PBXNativeTarget "AlphabatesRecognizer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				42E359F115A536C000C9A3F3 /* Debug */,
