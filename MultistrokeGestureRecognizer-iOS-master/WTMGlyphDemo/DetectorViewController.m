@@ -7,10 +7,12 @@
 //
 
 #import "DetectorViewController.h"
-#define GESTURE_SCORE_THRESHOLD         2.5f
+#import "OverviewViewController.h"
+#define GESTURE_SCORE_THRESHOLD         1.5f
 
 @interface DetectorViewController () <WTMGlyphDelegate>
 
+@property (strong) OverviewViewController *overviewController;
 @end
 
 @implementation DetectorViewController
@@ -42,6 +44,20 @@
     [self.detectorView bringSubviewToFront:self.loadingIndicator];
     [self loadTemplates];
     self.outputTextField.text = @"";
+    self.overviewController = [[OverviewViewController alloc] init];
+    
+    
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Overview" style:UIBarButtonItemStylePlain target:self action:@selector(showOverview:)];
+//    UINavigationController *overviewNav = [[UINavigationController alloc] initWithRootViewController:self.overviewController];
+//    [self.navigationController presentViewController:overviewNav animated:YES completion:nil];
+    
+//    [self.navigationController pushViewController:self.overviewController animated:YES];
+    
+}
+-(void)showOverview:(id)sender{
+    
+    [self.navigationController pushViewController:self.overviewController animated:YES];
+
 }
 -(void)loadTemplates{
     [self.loadingIndicator startAnimating];
@@ -88,7 +104,7 @@
 {
     [super viewDidAppear:animated];
     [self updateInfoLabel];
-
+   
 }
 -(void)updateInfoLabel{
     
