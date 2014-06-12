@@ -334,6 +334,11 @@
 			attributes = {
 				LastUpgradeCheck = 0430;
 				ORGANIZATIONNAME = "torin.nguyen@2359media.com";
+				TargetAttributes = {
+					42E359CE15A536C000C9A3F3 = {
+						DevelopmentTeam = NX6EKGVCW9;
+					};
+				};
 			};
 			buildConfigurationList = 42E359C915A536C000C9A3F3 /* Build configuration list for PBXProject "AlphabatesRecognizer" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -492,6 +497,7 @@
 		42E359F115A536C000C9A3F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WTMGlyphDemo/AlphabatesRecognizer-Prefix.pch";
 				INFOPLIST_FILE = "WTMGlyphDemo/AlphabatesRecognizer-Info.plist";
@@ -505,6 +511,7 @@
 		42E359F215A536C000C9A3F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "WTMGlyphDemo/AlphabatesRecognizer-Prefix.pch";
 				INFOPLIST_FILE = "WTMGlyphDemo/AlphabatesRecognizer-Info.plist";
