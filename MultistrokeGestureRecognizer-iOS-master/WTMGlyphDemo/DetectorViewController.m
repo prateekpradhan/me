@@ -182,7 +182,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         NSString *cellString = @"Start Drawing on Canvas";
         if(self.results.count){
-                cellString = @"Any Others";
+                cellString = @"Any Other";
         }
         cell.textLabel.text = [NSString stringWithFormat:@"%@",cellString];
         return cell;
