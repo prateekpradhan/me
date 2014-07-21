@@ -26,6 +26,12 @@
 //  }
     self.viewController = [[DetectorViewController alloc] init];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+//    NSString *path = [[self applicationDocumentsDirectory].path
+//                      stringByAppendingPathComponent:@"fileName.txt"];
+//    [@"VBN" writeToFile:path atomically:YES
+//                   encoding:NSUTF8StringEncoding error:nil];
+    
+   
   
   self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];

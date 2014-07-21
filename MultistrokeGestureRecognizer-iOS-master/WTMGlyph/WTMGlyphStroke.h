@@ -17,6 +17,6 @@
 
 - (id)initWithPoints:(NSArray *)_points;
 - (void)addPoint:(CGPoint)point;
-
+-(NSMutableArray *)getArraryRepresentation;
 
 @end

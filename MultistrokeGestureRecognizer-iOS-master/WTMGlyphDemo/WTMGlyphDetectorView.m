@@ -134,15 +134,36 @@
   va_end(args);
 }
 -(void)loadAvailableTemplates{
-    NSData *jsonData = [NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Dictionary" ofType:@"json"]];
-    NSError *error = nil;
-	NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
-    for (NSString *glyphName in dict) {
-        [self.glyphNamesArray addObject:glyphName];
-        NSArray *arr = [dict objectForKey:glyphName];
-        if(arr){
-            [self.glyphDetector addGlyphForInfo:arr name:glyphName];
-
+    
+    NSError* error1 = nil;
+    
+    
+    NSURL *documentDirPathURL = [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                                   inDomains:NSUserDomainMask] lastObject];
+    NSString *documentDirPath = documentDirPathURL.path;
+    NSString *filePath = [documentDirPath stringByAppendingString:@"/FontLibrary.json"];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    // Check if the database has already been created in the users filesystem
+    if (![fileManager fileExistsAtPath:filePath]){
+        NSString *sourcePath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"FontLibrary.json"];
+        [[NSFileManager defaultManager] copyItemAtPath:sourcePath
+                                                toPath:filePath
+                                                 error:&error1];
+        
+    }
+    if(!error1){
+        NSData *jsonData = [NSData dataWithContentsOfFile:filePath];
+        
+        NSError *error = nil;
+        NSDictionary *dict = [[CJSONDeserializer deserializer] deserializeAsDictionary:jsonData error:&error];
+        for (NSString *glyphName in dict) {
+            [self.glyphNamesArray addObject:glyphName];
+            NSArray *arr = [dict objectForKey:glyphName];
+            if(arr){
+                
+                [self.glyphDetector addGlyphForDetails:arr name:glyphName];
+            }
         }
     }
 

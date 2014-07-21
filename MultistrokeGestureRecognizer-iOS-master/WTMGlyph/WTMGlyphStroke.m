@@ -13,6 +13,7 @@
 @synthesize points;
 
 
+
 - (id)initWithPoints:(NSArray *)_points {
     if ((self = [super init])) {
         self.points = [NSMutableArray arrayWithArray:_points];
@@ -25,6 +26,16 @@
         self.points = [NSMutableArray array];
     
     [self.points addObject:[NSValue valueWithCGPoint:point]];
+}
+
+-(NSMutableArray *)getArraryRepresentation{
+    NSMutableArray *strokePoints = [[NSMutableArray alloc] init];
+    for (NSValue *pointObject in self.points) {
+        CGPoint point = [pointObject CGPointValue];
+        NSArray *tempArr = [NSArray arrayWithObjects:[NSNumber numberWithInt:point.x],[NSNumber numberWithInt:point.y ], nil];
+        [strokePoints addObject:tempArr];
+    }
+    return strokePoints;
 }
 
 @end

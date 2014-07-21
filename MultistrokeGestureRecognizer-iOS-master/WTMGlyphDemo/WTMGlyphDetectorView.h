@@ -32,5 +32,6 @@
 - (NSString *)getGlyphNamesString;
 -(void)logStrokes;
 -(void)detectGlyph;
+- (void)clearDrawingIfTimeout;
 
 @end

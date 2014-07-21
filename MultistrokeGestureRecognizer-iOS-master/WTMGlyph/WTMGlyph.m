@@ -196,5 +196,24 @@
 - (void)endStroke {
     
 }
+-(NSMutableDictionary *) glyphDetails{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    [dict setObject:self.name   forKey:KeyForName];
+    
+    NSMutableArray *tempStrokeArr =[[ NSMutableArray alloc] init];
+    for (WTMGlyphStroke *stroke in self.strokes) {
+        [tempStrokeArr addObject:[stroke getArraryRepresentation]];
+    }
+    [dict setObject:tempStrokeArr forKey:KeyForData];
+    if (self.glyphStyle == StyleTypeUser) {
+        self.glyphStyle = StyleTypeUser;
+    }else{
+        self.glyphStyle = StyleTypeStandard;
+    }
+    [dict setObject:[NSNumber numberWithInt:self.glyphStyle] forKey:KeyForStyle];
+    return dict;
+}
+
 
 @end

@@ -11,6 +11,7 @@
 #import "WTMGlyphDelegate.h"
 #import "WTMDetectionResult.h"
 
+
 @interface WTMGlyphDetector : NSObject {
     
     id<WTMGlyphDelegate> __unsafe_unretained delegate;
@@ -38,11 +39,13 @@
 - (void)addGlyph:(WTMGlyph *)glyph;
 - (void)addGlyphFromJSON:(NSData *)jsonData name:(NSString *)name;
 - (void)addGlyphForInfo:(NSArray *)points name:(NSString *)name;
+- (void)addGlyphForDetails:(NSArray *)glyphsDetailArr name:(NSString *)name;
 - (void)removeGlyphByName:(NSString *)name;
 
 - (void)addPoint:(CGPoint)point;
 - (void)removeAllPoints;
 - (void)removeAllGlyphs;
+-(void)exportAllGlyphs;
 
 - (WTMDetectionResult*)detectGlyph;
 

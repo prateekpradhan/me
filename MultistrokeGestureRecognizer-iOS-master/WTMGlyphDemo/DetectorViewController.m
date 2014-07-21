@@ -32,6 +32,10 @@
     UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithTitle:@"Auto Detect : OFF" style:UIBarButtonItemStyleBordered target:self action:@selector(autoDetectButtonClicked:)];
     item.tag = 1;
     self.navigationItem.leftBarButtonItem = item;
+    
+    UIBarButtonItem *exportButton = [[UIBarButtonItem alloc] initWithTitle:@"Export Gestures" style:UIBarButtonItemStyleBordered target:self action:@selector(exportButtonClicked:)];
+    self.navigationItem.rightBarButtonItem = exportButton;
+    
     self.detectorView.delegate = self;
     self.detectorView.frame = CGRectMake(0, 0, 587, 856);
     self.detectorView.disableAutoDetection = YES;
@@ -53,6 +57,9 @@
     
 //    [self.navigationController pushViewController:self.overviewController animated:YES];
     
+}
+-(void)exportButtonClicked:(id)sender{
+    [self.detectorView.glyphDetector exportAllGlyphs];
 }
 -(void)showOverview:(id)sender{
     
@@ -161,6 +168,9 @@
 }
 -(IBAction)clearButtonPressed:(id)sender{
     self.outputTextField.text = @"";
+    [self.detectorView clearDrawingIfTimeout];
+    self.results =nil;
+    [self.leftColumnTable reloadData];
 }
 #pragma mark START tableViewDelegate Methods
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -201,7 +211,14 @@
             self.results =nil;
             [self.leftColumnTable reloadData];
             self.resultLabel.text = [NSString stringWithFormat: @"Updated template for %@",name];
-
+            if(self.outputTextField.text.length){
+                
+               self.outputTextField.text =  [self.outputTextField.text stringByReplacingCharactersInRange:NSMakeRange(self.outputTextField.text.length-1, 1) withString:name];
+            }else{
+                self.outputTextField.text = name;
+            }
+           
+            
         }
     
     }else{
@@ -213,6 +230,7 @@
         
     }
 }
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     return @"Results";
 }
@@ -237,7 +255,12 @@
             self.results =nil;
             [self.leftColumnTable reloadData];
             self.resultLabel.text = [NSString stringWithFormat: @"Updated template for %@",name];
-            
+            if(self.outputTextField.text.length){
+               
+                self.outputTextField.text = [self.outputTextField.text stringByReplacingCharactersInRange:NSMakeRange(self.outputTextField.text.length-1, 1) withString:name];
+            }else{
+                self.outputTextField.text = name;
+            }
         }
 
     }

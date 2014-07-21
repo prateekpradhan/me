@@ -9,6 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "WTMGlyphStroke.h"
 #import "WTMGlyphTemplate.h"
+#define KeyForName @"Name"
+#define KeyForData @"Data"
+#define KeyForStyle @"Style"
+
+
+typedef enum {
+
+    StyleTypeStandard,
+    StyleTypeUser,
+    
+
+} ShapeStyleType;
 
 @interface WTMGlyph : NSObject {
     NSString *name;
@@ -24,7 +36,7 @@
 @property (nonatomic, strong) NSString *name;
 @property (nonatomic, strong) NSMutableArray *strokes;
 @property (nonatomic, strong) NSMutableArray *templates;
-
+@property (nonatomic) ShapeStyleType glyphStyle;
 - (id)init;
 - (id)initWithName:(NSString *)_name strokes:(NSArray *)strokes;
 - (id)initWithName:(NSString *)_name JSONData:(NSData *)jsonData;
@@ -41,5 +53,6 @@
 - (void)addPoint:(CGPoint)point;
 - (void)startStroke;
 - (void)endStroke;
+-(NSMutableDictionary *) glyphDetails;
 
 @end

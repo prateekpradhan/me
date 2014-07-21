@@ -46,6 +46,7 @@
 		4305514416B5BED600F4214D /* WTMDetectionResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 4305514316B5BED600F4214D /* WTMDetectionResult.m */; };
 		FB1C818B191B7E6A00577099 /* B.json in Resources */ = {isa = PBXBuildFile; fileRef = FB1C818A191B7E6A00577099 /* B.json */; };
 		FB1C818F191B8FC300577099 /* Dictionary.json in Resources */ = {isa = PBXBuildFile; fileRef = FB1C818E191B8FC300577099 /* Dictionary.json */; };
+		FB29CC66197D18F100991B3A /* FontLibrary.json in Resources */ = {isa = PBXBuildFile; fileRef = FB29CC65197D18F100991B3A /* FontLibrary.json */; };
 		FB4B125C1920C3C40093CC78 /* OverviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FB4B125A1920C3C40093CC78 /* OverviewViewController.m */; };
 		FB4B125D1920C3C40093CC78 /* OverviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = FB4B125B1920C3C40093CC78 /* OverviewViewController.xib */; };
 		FB68A698191DEA5B0093F888 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = FB68A697191DEA5B0093F888 /* Constants.m */; };
@@ -123,6 +124,7 @@
 		4305514316B5BED600F4214D /* WTMDetectionResult.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WTMDetectionResult.m; sourceTree = "<group>"; };
 		FB1C818A191B7E6A00577099 /* B.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = B.json; sourceTree = "<group>"; };
 		FB1C818E191B8FC300577099 /* Dictionary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Dictionary.json; sourceTree = "<group>"; };
+		FB29CC65197D18F100991B3A /* FontLibrary.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = FontLibrary.json; sourceTree = "<group>"; };
 		FB4B12591920C3C40093CC78 /* OverviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OverviewViewController.h; sourceTree = "<group>"; };
 		FB4B125A1920C3C40093CC78 /* OverviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OverviewViewController.m; sourceTree = "<group>"; };
 		FB4B125B1920C3C40093CC78 /* OverviewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OverviewViewController.xib; sourceTree = "<group>"; };
@@ -261,6 +263,7 @@
 				FB1C818E191B8FC300577099 /* Dictionary.json */,
 				FB68A696191DEA5B0093F888 /* Constants.h */,
 				FB68A697191DEA5B0093F888 /* Constants.m */,
+				FB29CC65197D18F100991B3A /* FontLibrary.json */,
 			);
 			path = WTMGlyph;
 			sourceTree = "<group>";
@@ -374,6 +377,7 @@
 				42E35A3215A5372500C9A3F3 /* N.json in Resources */,
 				FB1C818F191B8FC300577099 /* Dictionary.json in Resources */,
 				42E35A3415A5372500C9A3F3 /* P.json in Resources */,
+				FB29CC66197D18F100991B3A /* FontLibrary.json in Resources */,
 				42E35A3615A5372500C9A3F3 /* T.json in Resources */,
 				FBFA6128180BD844003F6C69 /* HindKA.json in Resources */,
 				4249138615A5544E001F58DD /* circle.json in Resources */,

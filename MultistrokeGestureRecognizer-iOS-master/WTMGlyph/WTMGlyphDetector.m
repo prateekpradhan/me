@@ -9,6 +9,8 @@
 #import "WTMGlyphDetector.h"
 #import "WTMGlyphDefaults.h"
 #import "WTMGlyphTemplate.h"
+#import "CJSONSerialization.h"
+#import "CJSONDeserializer.h"
 
 
 @implementation WTMGlyphDetector
@@ -85,8 +87,26 @@
 - (void)addGlyphForInfo:(NSArray *)paramPoints name:(NSString *)name
 {
     WTMGlyph *t = [[WTMGlyph alloc] initWithName:name dataPoints:paramPoints];
+    t.glyphStyle = StyleTypeUser;
     [self addGlyph:t];
 }
+- (void)addGlyphForDetails:(NSArray *)glyphsDetailArr name:(NSString *)name
+{
+    for (NSMutableDictionary *dict in glyphsDetailArr) {
+        WTMGlyph *t = [[WTMGlyph alloc] initWithName:name dataPoints:[dict objectForKey:KeyForData]];
+        ShapeStyleType type = [dict objectForKey:KeyForStyle];
+        if(type == StyleTypeUser)
+        {
+            t.glyphStyle = StyleTypeUser;
+            
+        }else {
+            t.glyphStyle = StyleTypeStandard;
+        }
+        
+        [self addGlyph:t];
+    }
+}
+
 
 
 - (void)removeGlyphByName:(NSString *)name 
@@ -118,6 +138,43 @@
 
 - (void)removeAllPoints {
     [self.points removeAllObjects];
+}
+- (NSURL *)applicationDocumentsDirectory {
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
+                                                   inDomains:NSUserDomainMask] lastObject];
+}
+-(void)exportAllGlyphs{
+    NSMutableDictionary *dict = [[NSMutableDictionary alloc] init];
+    
+    for (WTMGlyph *glyph in self.glyphs) {
+       
+        NSString *key = glyph.name;
+        NSMutableDictionary *glyphDetails = [glyph glyphDetails];
+        
+        if(![dict objectForKey:key]){
+            
+            [dict setObject:[NSMutableArray arrayWithObject:glyphDetails]  forKey:key];
+        }else{
+            NSMutableArray *glyphArr = [dict objectForKey:key];
+            [glyphArr addObject:[glyph glyphDetails]];
+            [dict setObject:glyphArr forKey:key];
+        }
+    }
+  
+	 NSError *error = nil;
+     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:&error];
+    if (jsonData)
+    {
+        NSString *json = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSLog(@"JSON : %@",json );
+        NSString *path = [[self applicationDocumentsDirectory].path
+                          stringByAppendingPathComponent:@"FontLibrary.json"];
+        [json writeToFile:path atomically:YES
+                   encoding:NSUTF8StringEncoding error:nil];
+    }
+    
+    
+    
 }
 
 - (WTMDetectionResult*)detectGlyph {
