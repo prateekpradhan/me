@@ -26,7 +26,10 @@ The Detector collects user input (an array of points) and triggers a comparison 
 
 # Creating Glyphs
 
-A Glyph can either be defined manually by defining its Strokes and initializing a Glyph with those Strokes. Or, a newly created Glyph can be fed user input and create itself when ready.
+A Glyph can either be defined manually by defining its Strokes and initializing a Glyph with those Strokes. Or, a newly created Glyph can be fed user input and create itself when ready. 
+
+# Guided By 
+- [Pratosh Bansal](https://github.com/pratosh-bansal)
 
 # License
 
